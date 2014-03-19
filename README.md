@@ -1,4 +1,5 @@
-calcv2
-======
+Just a regualar calculator!
 
-Calculator v2
+============================================================
+
+Calculator Monster
