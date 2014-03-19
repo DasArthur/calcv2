@@ -1,6 +1,574 @@
-*.class
+package com.me.calc;
 
-# Package Files #
-*.jar
-*.war
-*.ear
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class calc extends JFrame implements ActionListener{
+
+
+	private static final long serialVersionUID = 1L;
+
+	JPanel panel = new JPanel();
+
+	JLabel field;
+	JTextField ansField;
+	
+	JButton PlusMinusButton,komataButton,equalsButton,addButton,multiButton,divButton,minButton,clearButton;
+	JButton zeroButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,nineButton;
+	double ans = 0,total,num1,num2,num3,num4,num5,num6;
+	int addClick = 0,divClick = 0,multiClick = 0,minClick = 0;
+	String last,viss;
+	int divCounter = 0,multiCounter = 0,minCounter = 0,addCounter = 0;
+	
+	public calc(){
+		super("Calculator v2");
+		//JFrame
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setSize(230,375);
+		//String
+		
+		
+		//JPanel
+		panel = new JPanel();
+		panel.setSize(230,375);
+		panel.setLayout(null);
+		add(panel);
+		//field
+		field = new JLabel("");
+		field.setLocation(5, 10);
+		field.setSize(215,20);
+		field.setFont(new Font("Comic Sans MS",Font.PLAIN,14));
+        panel.add(field);
+        
+		
+        
+		//ansField
+        
+		ansField = new JTextField();
+		ansField.setLocation(5, 30);
+		ansField.setSize(215,40);
+		ansField.setEditable(false);
+		ansField.setFont(new Font("Comic Sans MS",Font.PLAIN,14));
+       
+        panel.add(ansField);
+        
+		//PlusMinusButton
+        PlusMinusButton = new JButton("-/+");
+        PlusMinusButton.setLocation(60,75);
+        PlusMinusButton.setSize(50,50);
+        PlusMinusButton.addActionListener(this);
+       panel.add(PlusMinusButton);
+        
+        //Clear Button
+        clearButton = new JButton("C");
+        clearButton.setLocation(5,75);
+        clearButton.setSize(50,50);
+        panel.add(clearButton);
+        clearButton.addActionListener(this);
+        //multiButton
+        multiButton = new JButton("x");
+        multiButton.setLocation(115, 75);
+        multiButton.setSize(50,50);
+        multiButton.addActionListener(this);
+        panel.add(multiButton);
+		//divButton
+        divButton = new JButton("/");
+        divButton.setLocation(170,75);
+        divButton.setSize(50,50);
+        divButton.addActionListener(this);
+        panel.add(divButton);
+        //sevenButton
+        sevenButton = new JButton("7");
+        sevenButton.setLocation(5,130);
+        sevenButton.setSize(50,50);
+        panel.add(sevenButton);
+        sevenButton.addActionListener(this);
+        //eightButton
+        eightButton = new JButton("8");
+        eightButton.setLocation(60,130);
+        eightButton.setSize(50,50);
+        panel.add(eightButton);
+        eightButton.addActionListener(this);
+        //nineButton
+        nineButton = new JButton("9");
+        nineButton.setLocation(115,130);
+        nineButton.setSize(50,50);
+        panel.add(nineButton);
+        nineButton.addActionListener(this);
+        //minButton
+        minButton = new JButton("-");
+        minButton.setLocation(170,130);
+        minButton.setSize(50,50);
+        panel.add(minButton);
+        minButton.addActionListener(this);
+        //fourButton
+        fourButton = new JButton("4");
+        fourButton.setLocation(5,185);
+        fourButton.setSize(50,50);
+        panel.add(fourButton);
+        fourButton.addActionListener(this);
+        //fiveButton
+        fiveButton = new JButton("5");
+        fiveButton.setLocation(60,185);
+        fiveButton.setSize(50,50);
+        panel.add(fiveButton);
+        fiveButton.addActionListener(this);
+        //sixButton
+        sixButton = new JButton("6");
+        sixButton.setLocation(115,185);
+        sixButton.setSize(50,50);
+        panel.add(sixButton);
+        sixButton.addActionListener(this);
+        //plusButton
+        addButton = new JButton("+");
+        addButton.setLocation(170, 185);
+        addButton.setSize(50,105);
+        panel.add(addButton);
+        addButton.addActionListener(this);
+        //oneButton
+        oneButton = new JButton("1");
+        oneButton.setLocation(5, 240);
+        oneButton.setSize(50,50);
+        panel.add(oneButton);
+        oneButton.addActionListener(this);
+        //twoButton
+        twoButton= new JButton("2");
+        twoButton.setLocation(60,240);
+        twoButton.setSize(50,50);
+        panel.add(twoButton);
+        twoButton.addActionListener(this);
+        //threeButton
+        threeButton = new JButton("3");
+        threeButton.setLocation(115,240);
+        threeButton.setSize(50,50);
+        panel.add(threeButton);
+        threeButton.addActionListener(this);
+        //equalsButton
+        equalsButton = new JButton("=");
+        equalsButton.setLocation(115, 295);
+        equalsButton.setSize(105,50);
+        panel.add(equalsButton);
+        equalsButton.addActionListener(this);
+        //komataButton
+        komataButton = new JButton(".");
+        komataButton.setLocation(60,295);
+        komataButton.setSize(50,50);
+        panel.add(komataButton);
+        komataButton.addActionListener(this);
+        //zeroButton
+        zeroButton = new JButton("0");
+        zeroButton.setLocation(5,295);
+        zeroButton.setSize(50,50);
+        
+        zeroButton.addActionListener(this);
+        panel.add(zeroButton);
+        this.setVisible(true);
+	}
+    public void actionPerformed(ActionEvent e) {
+  //clearButton
+    	if(e.getSource() == clearButton){
+        ansField.setText("");
+        field.setText("");
+    	multiClick = 0;
+    	minClick = 0;
+    	divClick = 0;
+    	addClick = 0;
+    	num1 = 0;
+        num2 = 0;
+        total = 0;
+        num3 = 0;
+    	}
+    //zeroButton
+        if(e.getSource() == zeroButton){
+        	if(ansField.getText().length() < 8){
+        	
+        		if(ansField.getText().equals("")){
+        			ansField.setText("0");
+        		}else{
+        			ansField.setText(ansField.getText() + "0");
+        		}
+        	}
+        }	
+    //oneButton
+        if(e.getSource() == oneButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("1");
+        		}else{
+        			ansField.setText(ansField.getText() + "1");
+        		}
+        	}
+        }
+    //twoButton
+        if(e.getSource() == twoButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("2");
+        		}else{
+        			ansField.setText(ansField.getText() + "2");
+        		}
+        	}
+        }
+    //threeButton
+        if(e.getSource() == threeButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("3");
+        		}else{
+        			ansField.setText(ansField.getText() + "3");
+        		}
+        	}
+        }
+    //fourButton
+        if(e.getSource() == fourButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("4");
+        		}else{
+        			ansField.setText(ansField.getText() + "4");
+        		}
+        	}
+        }
+    //fiveButton
+        if(e.getSource() == fiveButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("5");
+        		}else{
+        			ansField.setText(ansField.getText() + "5");
+        		}
+        	}
+        }
+    //sixButton
+        if(e.getSource() == sixButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("6");
+        		}else{
+        			ansField.setText(ansField.getText() + "6");
+        		}
+        	}
+        }
+     //sevenButton
+        if(e.getSource() == sevenButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("7");
+        		}else{
+        			ansField.setText(ansField.getText() + "7");
+        		}
+        	}
+        }
+      //eightButton
+        if(e.getSource() == eightButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("8");
+        		}else{
+        			ansField.setText(ansField.getText() + "8");
+        		}
+        	}
+        }
+      //nineButton
+        if(e.getSource() == nineButton){
+        	if(ansField.getText().length() < 8){
+        		if(ansField.getText().equals("")){
+        			ansField.setText("9");
+        		}else{
+        			ansField.setText(ansField.getText() + "9");
+        		}
+        	}
+        }
+      //PlusMinusButton
+        try{
+        if(e.getSource() == PlusMinusButton){
+        	if(ansField.getText().contains(".")){
+        		double lol = Double.parseDouble(String.valueOf(ansField.getText()));
+        		lol *=-1;
+        		ansField.setText(String.valueOf(lol));
+        	}else{
+        		int l = Integer.parseInt(String.valueOf(ansField.getText()));
+        		l *=-1;
+        		ansField.setText(String.valueOf(l));
+        	}
+        }
+        }catch(Exception ex){
+        	ansField.setText("Neizdevas Pievienot - ");
+        }
+      //komatPoga
+        if(e.getSource() == komataButton){
+        	if(ansField.getText().contains(".")){
+        		
+        	}else{
+             ansField.setText(ansField.getText() + ".");
+        	}
+        }
+      //addButton
+        try{
+        if(e.getSource() == addButton){
+        	if(multiClick == 1){
+        		field.setText(field.getText() + ansField.getText() + addButton.getText());
+                num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                		total = num1 * num2;
+                    num1 = total;
+                    System.out.println(num1);
+                	minClick =0;
+                	addClick = 1;
+                	ansField.setText("");
+                	multiClick = 0;
+                	addClick = 1;
+        }else if(divClick == 1){
+        		field.setText(field.getText() + ansField.getText() + addButton.getText());
+                num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                		total = num1 / num2;
+                    num1 = total;
+                    System.out.println(num1);
+                	minClick =0;
+                	addClick = 1;
+                	ansField.setText("");
+                	divClick = 0;
+                	addClick = 1;
+        }else if(minClick == 1){
+        	field.setText(field.getText() + ansField.getText() + addButton.getText());
+        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+        		total = num1 - num2;
+            num1 = total;
+            System.out.println(num1);
+        	minClick =0;
+        	addClick = 1;
+        	ansField.setText("");
+        	minClick = 0;
+        	addClick = 1;
+        }else if(addClick == 0){
+        		field.setText(field.getText() + ansField.getText() + addButton.getText());
+            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
+            	
+            	ansField.setText("");
+            	addClick = 1;
+            	addCounter = 1;
+        	}else if(addClick == 1 ){
+        		field.setText(field.getText() + ansField.getText() + addButton.getText());
+        		num4 = Double.parseDouble(String.valueOf(ansField.getText()));
+        		
+        		num3 = num1+num4;
+        		num1 = num3;
+            	ansField.setText("");
+            	addClick = 1;
+            	addCounter++;
+        	}
+        }
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+      //minButton
+        try{
+       
+        	
+         if(e.getSource() == minButton){
+         if(multiClick == 1){
+        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+             		total = num1 * num2;
+                 num1 = total;
+                 System.out.println(num1);
+             	ansField.setText("");
+             	multiClick = 0;
+             	minClick = 1;
+         }else if(divClick == 1){
+        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+             		total = num1 / num2;
+                 num1 = total;
+                 System.out.println(num1);
+           
+             	ansField.setText("");
+             	divClick = 0;
+             	minClick = 1;
+         }else if(addClick == 1){
+        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+             		total = num1 + num2;
+                 num1 = total;
+                 System.out.println(num1);
+             	
+             	ansField.setText("");
+             	addClick = 0;
+             	minClick = 1;
+        	}else if(minClick == 0){
+        		field.setText(field.getText() + ansField.getText() + minButton.getText());
+            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
+            	ansField.setText("");
+            	minClick = 1;
+        	}else if(minClick == 1){
+        		
+        		field.setText(field.getText() + ansField.getText() + minButton.getText());
+            	num3 = Double.parseDouble(String.valueOf(ansField.getText()));
+            	num4 = num1-num3;
+            	num1 = num4;
+            	ansField.setText("");
+            	minClick = 1;
+        	}
+        	
+        
+        }
+        
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+      //divButton
+        try{
+        	 if(e.getSource() == divButton){
+        		 if(multiClick == 1){
+                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                        		total = num1 * num2;
+                            num1 = total;
+                            System.out.println(num1);
+                        	ansField.setText("");
+                        	multiClick = 0;
+                        	divClick = 1;
+                    }else if(minClick == 1){
+                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                        		total = num1 - num2;
+                            num1 = total;
+                            System.out.println(num1);
+                      
+                        	ansField.setText("");
+                        	minClick = 0;
+                        	divClick = 1;
+                    }else if(addClick == 1){
+                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                        		total = num1 + num2;
+                            num1 = total;
+                            System.out.println(num1);
+                        	
+                        	ansField.setText("");
+                        	addClick = 0;
+                        	divClick = 1;
+                   	}else if(divClick == 0){
+        			field.setText(field.getText() + ansField.getText() + divButton.getText());
+                	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
+                	ansField.setText("");
+                	divClick = 1;
+        		}else if(divClick == 1){
+        			field.setText(field.getText() + ansField.getText() + divButton.getText());
+            		num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+            		num3 = num1/num2;
+            		num1 = num3;
+                	ansField.setText("");
+                	divClick = 1;
+        		}	
+        }
+        
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+      //multiButton
+        try{
+        if(e.getSource() == multiButton){
+        	if(divClick == 1){
+              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
+                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                   		total = num1 / num2;
+                       num1 = total;
+                       System.out.println(num1);
+                   	ansField.setText("");
+                   	divClick = 0;
+                   	multiClick = 1;
+               }else if(minClick == 1){
+              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
+                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                   		total = num1 - num2;
+                       num1 = total;
+                       System.out.println(num1);
+                 
+                   	ansField.setText("");
+                   	minClick = 0;
+                   	multiClick = 1;
+               }else if(addClick == 1){
+              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
+                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+                   		total = num1 + num2;
+                       num1 = total;
+                       System.out.println(num1);
+                   	
+                   	ansField.setText("");
+                   	addClick = 0;
+                   	multiClick = 1;
+              	}else if(multiClick == 0){
+        		field.setText(field.getText() + ansField.getText() + multiButton.getText());
+            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
+            	ansField.setText("");
+            	multiClick = 1;
+            
+        	}else if(multiClick == 1){
+        		field.setText(field.getText() + ansField.getText() + multiButton.getText());
+            	num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+            	num3 = num1*num3;
+            	num1 = num3;
+            	ansField.setText("");
+            	divClick = 1;
+            	
+        	}
+        }
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+      //equalsButton
+        try{
+      if(e.getSource() == equalsButton){
+    	  field.setText("");
+    	  num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+    	  if(addClick == 1){
+    		  ans = num1 +num2;
+    		  ansField.setText(String.valueOf(ans));
+    		  
+    	  }else if(multiClick == 1){
+    		  ans = num1 * num2;
+    		  ansField.setText(String.valueOf(ans));
+    		  num1 = 0;
+    	        num2 = 0;
+    	  }else if(divClick == 1){
+    		  ans = num1 / num2;
+    		  ansField.setText(String.valueOf(ans));
+    		  num1 = 0;
+    	        num2 = 0;
+    	  }else if(minClick == 1){
+    		  ans = num1 - num2;
+    		  ansField.setText(String.valueOf(ans));
+    		  num1 = 0;
+    	        num2 = 0;
+    	  }
+      }  
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+	}
+  
+    
+	
+	public static void main(String[] args) {
+		
+		new calc();
+	
+		
+		
+		
+	}
+
+	
+	
+
+}
