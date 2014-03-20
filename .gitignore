@@ -1,6 +1,7 @@
 package com.me.calc;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,19 +26,26 @@ public class calc extends JFrame implements ActionListener{
 	JTextField ansField;
 	
 	JButton PlusMinusButton,komataButton,equalsButton,addButton,multiButton,divButton,minButton,clearButton;
-	JButton zeroButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,nineButton;
+	JButton zeroButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,nineButton,kvadrButton;
 	double ans = 0,total,num1,num2,num3,num4,num5,num6;
 	int addClick = 0,divClick = 0,multiClick = 0,minClick = 0;
-	String last,viss;
+	Font a,c;
 	int divCounter = 0,multiCounter = 0,minCounter = 0,addCounter = 0;
-	
+	JMenuBar bar;
+	JMenu pap ,settings,color,font;
+	JMenuItem cos,tang,kvadr,exit;
+	JMenuItem melna,zila,dzeltana;
+	JMenuItem arial,Comic;
 	public calc(){
 		super("Calculator v2");
+		//fonts
+		a = new Font("Arial",Font.PLAIN,19);
+		c = new Font("Comic Sans MS",Font.PLAIN,19);
 		//JFrame
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(230,375);
+		setSize(230,385);
 		//String
 		
 		
@@ -45,9 +56,9 @@ public class calc extends JFrame implements ActionListener{
 		add(panel);
 		//field
 		field = new JLabel("");
-		field.setLocation(5, 10);
+		field.setLocation(5, 19);
 		field.setSize(215,20);
-		field.setFont(new Font("Comic Sans MS",Font.PLAIN,14));
+		field.setFont(new Font("Arial",Font.BOLD,14));
         panel.add(field);
         
 		
@@ -55,123 +66,184 @@ public class calc extends JFrame implements ActionListener{
 		//ansField
         
 		ansField = new JTextField();
-		ansField.setLocation(5, 30);
+		ansField.setLocation(5, 37);
 		ansField.setSize(215,40);
 		ansField.setEditable(false);
-		ansField.setFont(new Font("Comic Sans MS",Font.PLAIN,14));
+		ansField.setFont(c);
        
         panel.add(ansField);
         
 		//PlusMinusButton
         PlusMinusButton = new JButton("-/+");
-        PlusMinusButton.setLocation(60,75);
+        PlusMinusButton.setLocation(60,85);
         PlusMinusButton.setSize(50,50);
         PlusMinusButton.addActionListener(this);
        panel.add(PlusMinusButton);
         
         //Clear Button
         clearButton = new JButton("C");
-        clearButton.setLocation(5,75);
+        clearButton.setLocation(5,85);
         clearButton.setSize(50,50);
         panel.add(clearButton);
         clearButton.addActionListener(this);
         //multiButton
         multiButton = new JButton("x");
-        multiButton.setLocation(115, 75);
+        multiButton.setLocation(115, 85);
         multiButton.setSize(50,50);
         multiButton.addActionListener(this);
         panel.add(multiButton);
 		//divButton
         divButton = new JButton("/");
-        divButton.setLocation(170,75);
+        divButton.setLocation(170,85);
         divButton.setSize(50,50);
         divButton.addActionListener(this);
         panel.add(divButton);
         //sevenButton
         sevenButton = new JButton("7");
-        sevenButton.setLocation(5,130);
+        sevenButton.setLocation(5,140);
         sevenButton.setSize(50,50);
         panel.add(sevenButton);
         sevenButton.addActionListener(this);
         //eightButton
         eightButton = new JButton("8");
-        eightButton.setLocation(60,130);
+        eightButton.setLocation(60,140);
         eightButton.setSize(50,50);
         panel.add(eightButton);
         eightButton.addActionListener(this);
         //nineButton
         nineButton = new JButton("9");
-        nineButton.setLocation(115,130);
+        nineButton.setLocation(115,140);
         nineButton.setSize(50,50);
         panel.add(nineButton);
         nineButton.addActionListener(this);
         //minButton
         minButton = new JButton("-");
-        minButton.setLocation(170,130);
+        minButton.setLocation(170,140);
         minButton.setSize(50,50);
         panel.add(minButton);
         minButton.addActionListener(this);
         //fourButton
         fourButton = new JButton("4");
-        fourButton.setLocation(5,185);
+        fourButton.setLocation(5,195);
         fourButton.setSize(50,50);
         panel.add(fourButton);
         fourButton.addActionListener(this);
         //fiveButton
         fiveButton = new JButton("5");
-        fiveButton.setLocation(60,185);
+        fiveButton.setLocation(60,195);
         fiveButton.setSize(50,50);
         panel.add(fiveButton);
         fiveButton.addActionListener(this);
         //sixButton
         sixButton = new JButton("6");
-        sixButton.setLocation(115,185);
+        sixButton.setLocation(115,195);
         sixButton.setSize(50,50);
         panel.add(sixButton);
         sixButton.addActionListener(this);
         //plusButton
         addButton = new JButton("+");
-        addButton.setLocation(170, 185);
+        addButton.setLocation(170, 195);
         addButton.setSize(50,105);
         panel.add(addButton);
         addButton.addActionListener(this);
         //oneButton
         oneButton = new JButton("1");
-        oneButton.setLocation(5, 240);
+        oneButton.setLocation(5, 250);
         oneButton.setSize(50,50);
         panel.add(oneButton);
         oneButton.addActionListener(this);
         //twoButton
         twoButton= new JButton("2");
-        twoButton.setLocation(60,240);
+        twoButton.setLocation(60,250);
         twoButton.setSize(50,50);
         panel.add(twoButton);
         twoButton.addActionListener(this);
         //threeButton
         threeButton = new JButton("3");
-        threeButton.setLocation(115,240);
+        threeButton.setLocation(115,250);
         threeButton.setSize(50,50);
         panel.add(threeButton);
         threeButton.addActionListener(this);
         //equalsButton
         equalsButton = new JButton("=");
-        equalsButton.setLocation(115, 295);
+        equalsButton.setLocation(115, 305);
         equalsButton.setSize(105,50);
         panel.add(equalsButton);
         equalsButton.addActionListener(this);
         //komataButton
         komataButton = new JButton(".");
-        komataButton.setLocation(60,295);
+        komataButton.setLocation(60,305);
         komataButton.setSize(50,50);
         panel.add(komataButton);
         komataButton.addActionListener(this);
         //zeroButton
         zeroButton = new JButton("0");
-        zeroButton.setLocation(5,295);
+        zeroButton.setLocation(5,305);
         zeroButton.setSize(50,50);
         
         zeroButton.addActionListener(this);
         panel.add(zeroButton);
+       //Papildus Lietas
+        bar = new JMenuBar();
+        bar.setLocation(1,1);
+        bar.setSize(230,20);
+        panel.add(bar);
+        
+        pap = new JMenu("Papildus");
+        bar.add(pap);
+        
+        kvadrButton = new JButton("Kvadrātsakne");
+        
+        kvadr = new JMenuItem("Kvadrātsakne");
+        cos = new JMenuItem("Cos");
+        tang = new JMenuItem("Sin");
+        
+        
+        pap.add(kvadr);
+        pap.add(cos);
+        pap.add(tang);
+        
+        kvadr.addActionListener(this);
+        cos.addActionListener(this);
+        tang.addActionListener(this);
+        
+        settings = new JMenu("Settings");
+        
+        bar.add(settings);
+        
+        color = new JMenu("Color");
+        settings.add(color);
+        
+        melna  = new JMenuItem("Black");
+         
+        color.add(melna);
+        
+        zila = new JMenuItem("Blue");
+        dzeltana = new JMenuItem("Dzeltana");
+        
+        color.add(zila);
+        color.add(dzeltana);
+        
+        melna.addActionListener(this);
+        dzeltana.addActionListener(this);
+        zila.addActionListener(this);
+        
+        font = new JMenu("Font");
+        
+        settings.add(font);
+        
+        arial = new JMenuItem("Arial");
+        Comic  =  new JMenuItem("MC Comic Sans");
+        font.add(arial);
+        font.add(Comic);
+        arial.addActionListener(this);
+        Comic.addActionListener(this);
+        
+        exit = new JMenuItem("Exit");
+        
+        pap.add(exit);
+        exit.addActionListener(this);
+        //
         this.setVisible(true);
 	}
     public void actionPerformed(ActionEvent e) {
@@ -554,6 +626,56 @@ public class calc extends JFrame implements ActionListener{
       }  
         }catch(Exception ex){
         	ansField.setText("Error");
+        }
+        try{
+        if(e.getSource() == kvadr){
+        	if(ansField.getText().length() < 6){
+        		double kv = Double.parseDouble(String.valueOf(ansField.getText()));
+        		
+        		double kv2 = Math.sqrt(kv);
+        		
+        		ansField.setText(String.valueOf(kv2));
+        	}
+        }
+        if(e.getSource() == cos){
+        	if(ansField.getText().length() < 6){
+        		double kv = Double.parseDouble(String.valueOf(ansField.getText()));
+        		
+        		double kv2 = Math.cos(kv);
+        		
+        		ansField.setText(String.valueOf(kv2));
+        	}
+        }
+        if(e.getSource() == tang){
+        	if(ansField.getText().length() < 6){
+        		double kv = Double.parseDouble(String.valueOf(ansField.getText()));
+        		
+        		double kv2 = Math.tan(kv);
+        		
+        		ansField.setText(String.valueOf(kv2));
+        	}
+        }
+        }catch(Exception ex){
+        	ansField.setText("Error");
+        }
+        if(e.getSource() == melna){
+        	panel.setBackground(Color.BLACK);
+        	
+        }
+        if(e.getSource() == dzeltana){
+        	panel.setBackground(Color.YELLOW);
+        }
+        if(e.getSource() == zila){
+        	panel.setBackground(Color.BLUE);
+        }
+        if(e.getSource() == arial){
+          ansField.setFont(a);
+        }
+        if(e.getSource() == Comic){
+        	ansField.setFont(c);
+        }
+        if(e.getSource() == exit){
+        	System.exit(0);
         }
 	}
   
