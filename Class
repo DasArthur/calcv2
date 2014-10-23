@@ -34,7 +34,7 @@ public class calc extends JFrame implements ActionListener{
 	JMenuBar bar;
 	JMenu pap ,settings,color,font;
 	JMenuItem cos,tang,kvadr,exit;
-	JMenuItem melna,zila,dzeltana;
+	JMenuItem melna,zila,dzeltana,balta;
 	JMenuItem arial,Comic;
 	public calc(){
 		super("Calculator v2");
@@ -220,14 +220,14 @@ public class calc extends JFrame implements ActionListener{
         
         zila = new JMenuItem("Blue");
         dzeltana = new JMenuItem("Dzeltana");
-        
+        balta = new JMenuItem("Balta");
         color.add(zila);
         color.add(dzeltana);
-        
+        color.add(balta);
         melna.addActionListener(this);
         dzeltana.addActionListener(this);
         zila.addActionListener(this);
-        
+        balta.addActionListener(this);
         font = new JMenu("Font");
         
         settings.add(font);
@@ -653,6 +653,10 @@ public class calc extends JFrame implements ActionListener{
         if(e.getSource() == zila){
         	panel.setBackground(Color.BLUE);
         }
+        if(e.getSource() == balta){
+        	panel.setBackground(Color.WHITE);
+        	
+        }
         if(e.getSource() == arial){
           ansField.setFont(a);
         }
@@ -679,3 +683,4 @@ public class calc extends JFrame implements ActionListener{
 	
 
 }
+
