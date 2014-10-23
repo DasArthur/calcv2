@@ -445,7 +445,7 @@ public class calc extends JFrame implements ActionListener{
         	
          if(e.getSource() == minButton){
          if(multiClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
              num2 = Double.parseDouble(String.valueOf(ansField.getText()));
              		total = num1 * num2;
                  num1 = total;
@@ -453,7 +453,7 @@ public class calc extends JFrame implements ActionListener{
              	multiClick = 0;
              	minClick = 1;
          }else if(divClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
              num2 = Double.parseDouble(String.valueOf(ansField.getText()));
              		total = num1 / num2;
                  num1 = total;
@@ -462,7 +462,7 @@ public class calc extends JFrame implements ActionListener{
              	divClick = 0;
              	minClick = 1;
          }else if(addClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
              num2 = Double.parseDouble(String.valueOf(ansField.getText()));
              		total = num1 + num2;
                  num1 = total;
@@ -495,7 +495,7 @@ public class calc extends JFrame implements ActionListener{
         try{
         	 if(e.getSource() == divButton){
         		 if(multiClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
                         num2 = Double.parseDouble(String.valueOf(ansField.getText()));
                         		total = num1 * num2;
                             num1 = total;
@@ -503,7 +503,7 @@ public class calc extends JFrame implements ActionListener{
                         	multiClick = 0;
                         	divClick = 1;
                     }else if(minClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
                         num2 = Double.parseDouble(String.valueOf(ansField.getText()));
                         		total = num1 - num2;
                             num1 = total;
@@ -511,7 +511,7 @@ public class calc extends JFrame implements ActionListener{
                         	minClick = 0;
                         	divClick = 1;
                     }else if(addClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + addButton.getText());
+                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
                         num2 = Double.parseDouble(String.valueOf(ansField.getText()));
                         		total = num1 + num2;
                             num1 = total;
