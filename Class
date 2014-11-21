@@ -27,17 +27,16 @@ public class calc extends JFrame implements ActionListener{
 	
 	JButton PlusMinusButton,komataButton,equalsButton,addButton,multiButton,divButton,minButton,clearButton;
 	JButton zeroButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,nineButton,kvadrButton;
-	double ans = 0,total,num1,num2,num3,num4,num5,num6;
+	double ans = 0,total,num1,num2;
 	int addClick = 0,divClick = 0,multiClick = 0,minClick = 0;
 	Font a,c;
-	int divCounter = 0,multiCounter = 0,minCounter = 0,addCounter = 0;
 	JMenuBar bar;
 	JMenu pap ,settings,color,font;
 	JMenuItem cos,tang,kvadr,exit;
 	JMenuItem melna,zila,dzeltana,balta;
 	JMenuItem arial,Comic;
 	public calc(){
-		super("Calculator v2");
+		super("Calculator");
 		//fonts
 		a = new Font("Arial",Font.PLAIN,19);
 		c = new Font("Comic Sans MS",Font.PLAIN,19);
@@ -207,28 +206,11 @@ public class calc extends JFrame implements ActionListener{
         cos.addActionListener(this);
         tang.addActionListener(this);
         
-        settings = new JMenu("Settings");
+        settings = new JMenu("Iestatijumi");
         
         bar.add(settings);
         
-        color = new JMenu("Color");
-        settings.add(color);
-        
-        melna  = new JMenuItem("Black");
-         
-        color.add(melna);
-        
-        zila = new JMenuItem("Blue");
-        dzeltana = new JMenuItem("Dzeltana");
-        balta = new JMenuItem("Balta");
-        color.add(zila);
-        color.add(dzeltana);
-        color.add(balta);
-        melna.addActionListener(this);
-        dzeltana.addActionListener(this);
-        zila.addActionListener(this);
-        balta.addActionListener(this);
-        font = new JMenu("Font");
+        font = new JMenu("Fonts");
         
         settings.add(font);
         
@@ -238,14 +220,36 @@ public class calc extends JFrame implements ActionListener{
         font.add(Comic);
         arial.addActionListener(this);
         Comic.addActionListener(this);
-        
-        exit = new JMenuItem("Exit");
-        
-        pap.add(exit);
-        exit.addActionListener(this);
-        //
+        //SHOW IT 
         this.setVisible(true);
 	}
+	
+	//CFUNCTION
+	public void cf(){
+		  num2 = Double.parseDouble(String.valueOf(ansField.getText()));
+	      if(addClick == 1){
+	    	  
+	    	  num1 = num1 + num2;
+	    	 addClick = 0; 
+	      }else if(minClick == 1){
+	    	  num1 = num1 - num2;
+	    	  minClick = 0;
+	      }else if(multiClick == 1){ 
+	    	  num1 = num1 * num2;
+	    	  multiClick = 0;
+	    	  
+	      }else if(divClick == 1){
+	    	  num1 = num1 / num2;
+	    	  multiClick = 0;
+	    	  
+	      }else{
+	    	  num1 = Double.parseDouble(String.valueOf(ansField.getText()));
+	    	  
+	      }
+		 }
+	
+	
+	
     public void actionPerformed(ActionEvent e) {
   //clearButton
     	if(e.getSource() == clearButton){
@@ -256,9 +260,7 @@ public class calc extends JFrame implements ActionListener{
     	divClick = 0;
     	addClick = 0;
     	num1 = 0;
-        num2 = 0;
         total = 0;
-        num3 = 0;
     	}
     //zeroButton
         if(e.getSource() == zeroButton){
@@ -375,217 +377,59 @@ public class calc extends JFrame implements ActionListener{
         	}
         }
         }catch(Exception ex){
-        	ansField.setText("Neizdevas Pievienot - ");
+        	ansField.setText("");
         }
       //komatPoga
         if(e.getSource() == komataButton){
+        	if(ansField.getText().equals("")){}else{
         	if(ansField.getText().contains(".")){
         		
         	}else{
              ansField.setText(ansField.getText() + ".");
         	}
+        	}
         }
       //addButton
-        try{
-        if(e.getSource() == addButton){
-        	if(multiClick == 1){
-        		field.setText(field.getText() + ansField.getText() + addButton.getText());
-                num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                		total = num1 * num2;
-                    num1 = total;
-                	minClick =0;
-                	addClick = 1;
-                	ansField.setText("");
-                	multiClick = 0;
-                	addClick = 1;
-        }else if(divClick == 1){
-        		field.setText(field.getText() + ansField.getText() + addButton.getText());
-                num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                		total = num1 / num2;
-                    num1 = total;
-                	minClick =0;
-                	addClick = 1;
-                	ansField.setText("");
-                	divClick = 0;
-                	addClick = 1;
-        }else if(minClick == 1){
-        	field.setText(field.getText() + ansField.getText() + addButton.getText());
-        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-        		total = num1 - num2;
-            num1 = total;
-        	minClick =0;
-        	addClick = 1;
-        	ansField.setText("");
-        	minClick = 0;
-        	addClick = 1;
-        }else if(addClick == 0){
-        		field.setText(field.getText() + ansField.getText() + addButton.getText());
-            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
-            	
-            	ansField.setText("");
-            	addClick = 1;
-            	addCounter = 1;
-        	}else if(addClick == 1 ){
-        		field.setText(field.getText() + ansField.getText() + addButton.getText());
-        		num4 = Double.parseDouble(String.valueOf(ansField.getText()));
-        		
-        		num3 = num1+num4;
-        		num1 = num3;
-            	ansField.setText("");
-            	addClick = 1;
-            	addCounter++;
+        if(e.getSource() == addButton){	
+        	if(ansField.getText().equals("")){}else{
+        cf();
+        field.setText(field.getText() + ansField.getText() + addButton.getText());
+        addClick = 1;
+		ansField.setText("");
         	}
-        }
-        }catch(Exception ex){
-        	ansField.setText("Error");
         }
       //minButton
-        try{
-       
-        	
+   	
          if(e.getSource() == minButton){
-         if(multiClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
-             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-             		total = num1 * num2;
-                 num1 = total;
-             	ansField.setText("");
-             	multiClick = 0;
-             	minClick = 1;
-         }else if(divClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
-             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-             		total = num1 / num2;
-                 num1 = total;
-           
-             	ansField.setText("");
-             	divClick = 0;
-             	minClick = 1;
-         }else if(addClick == 1){
-        	 field.setText(field.getText() + ansField.getText() + minButton.getText());
-             num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-             		total = num1 + num2;
-                 num1 = total;
-             	
-             	ansField.setText("");
-             	addClick = 0;
-             	minClick = 1;
-        	}else if(minClick == 0){
-        		field.setText(field.getText() + ansField.getText() + minButton.getText());
-            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
-            	ansField.setText("");
-            	minClick = 1;
-        	}else if(minClick == 1){
-        		
-        		field.setText(field.getText() + ansField.getText() + minButton.getText());
-            	num3 = Double.parseDouble(String.valueOf(ansField.getText()));
-            	num4 = num1-num3;
-            	num1 = num4;
-            	ansField.setText("");
-            	minClick = 1;
-        	}
-        	
-        
-        }
-        
-        }catch(Exception ex){
-        	ansField.setText("Error");
+         	if(ansField.getText().equals("")){}else{
+         cf();
+         field.setText(field.getText() + ansField.getText() + minButton.getText());
+         minClick = 1;
+			ansField.setText("");
+         	}
         }
       //divButton
-        try{
+       
         	 if(e.getSource() == divButton){
-        		 if(multiClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
-                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                        		total = num1 * num2;
-                            num1 = total;
-                        	ansField.setText("");
-                        	multiClick = 0;
-                        	divClick = 1;
-                    }else if(minClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
-                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                        		total = num1 - num2;
-                            num1 = total;
-                        	ansField.setText("");
-                        	minClick = 0;
-                        	divClick = 1;
-                    }else if(addClick == 1){
-                   	 field.setText(field.getText() + ansField.getText() + divButton.getText());
-                        num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                        		total = num1 + num2;
-                            num1 = total;
-                        	ansField.setText("");
-                        	addClick = 0;
-                        	divClick = 1;
-                   	}else if(divClick == 0){
-        			field.setText(field.getText() + ansField.getText() + divButton.getText());
-                	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
-                	ansField.setText("");
-                	divClick = 1;
-        		}else if(divClick == 1){
-        			field.setText(field.getText() + ansField.getText() + divButton.getText());
-            		num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-            		num3 = num1/num2;
-            		num1 = num3;
-                	ansField.setText("");
-                	divClick = 1;
-        		}	
-        }
-        
-        }catch(Exception ex){
-        	ansField.setText("Error");
+        		 if(ansField.getText().equals("")){}else{
+        		 cf();
+                 field.setText(field.getText() + ansField.getText() + divButton.getText());
+                 divClick = 1;
+     			ansField.setText("");
+        		 }
         }
       //multiButton
-        try{
         if(e.getSource() == multiButton){
-        	if(divClick == 1){
-              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
-                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                   		total = num1 / num2;
-                       num1 = total;
-                   	ansField.setText("");
-                   	divClick = 0;
-                   	multiClick = 1;
-               }else if(minClick == 1){
-              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
-                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                   		total = num1 - num2;
-                       num1 = total;
-                   	ansField.setText("");
-                   	minClick = 0;
-                   	multiClick = 1;
-               }else if(addClick == 1){
-              	 field.setText(field.getText() + ansField.getText() + multiButton.getText());
-                   num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-                   		total = num1 + num2;
-                       num1 = total;
-                   	
-                   	ansField.setText("");
-                   	addClick = 0;
-                   	multiClick = 1;
-              	}else if(multiClick == 0){
-        		field.setText(field.getText() + ansField.getText() + multiButton.getText());
-            	num1 = Double.parseDouble(String.valueOf(ansField.getText()));
-            	ansField.setText("");
-            	multiClick = 1;
-            
-        	}else if(multiClick == 1){
-        		field.setText(field.getText() + ansField.getText() + multiButton.getText());
-            	num2 = Double.parseDouble(String.valueOf(ansField.getText()));
-            	num3 = num1*num3;
-            	num1 = num3;
-            	ansField.setText("");
-            	divClick = 1;
-            	
+        	if(ansField.getText().equals("")){}else{
+        	 cf();
+             field.setText(field.getText() + ansField.getText() + multiButton.getText());
+             multiClick = 1;
+ 			ansField.setText("");
         	}
         }
-        }catch(Exception ex){
-        	ansField.setText("Error");
-        }
       //equalsButton
-        try{
       if(e.getSource() == equalsButton){
+      	if(ansField.getText().equals("")){}else{
     	  field.setText("");
     	  num2 = Double.parseDouble(String.valueOf(ansField.getText()));
     	  if(addClick == 1){
@@ -595,24 +439,17 @@ public class calc extends JFrame implements ActionListener{
     	  }else if(multiClick == 1){
     		  ans = num1 * num2;
     		  ansField.setText(String.valueOf(ans));
-    		  num1 = 0;
-    	        num2 = 0;
     	  }else if(divClick == 1){
     		  ans = num1 / num2;
     		  ansField.setText(String.valueOf(ans));
-    		  num1 = 0;
-    	        num2 = 0;
     	  }else if(minClick == 1){
     		  ans = num1 - num2;
     		  ansField.setText(String.valueOf(ans));
-    		  num1 = 0;
-    	        num2 = 0;
     	  }
+      	}
       }  
-        }catch(Exception ex){
-        	ansField.setText("Error");
-        }
-        try{
+        
+  	if(ansField.getText().equals("")){}else{
         if(e.getSource() == kvadr){
         	if(ansField.getText().length() < 6){
         		double kv = Double.parseDouble(String.valueOf(ansField.getText()));
@@ -640,31 +477,12 @@ public class calc extends JFrame implements ActionListener{
         		ansField.setText(String.valueOf(kv2));
         	}
         }
-        }catch(Exception ex){
-        	ansField.setText("Error");
-        }
-        if(e.getSource() == melna){
-        	panel.setBackground(Color.BLACK);
-        	
-        }
-        if(e.getSource() == dzeltana){
-        	panel.setBackground(Color.YELLOW);
-        }
-        if(e.getSource() == zila){
-        	panel.setBackground(Color.BLUE);
-        }
-        if(e.getSource() == balta){
-        	panel.setBackground(Color.WHITE);
-        	
         }
         if(e.getSource() == arial){
           ansField.setFont(a);
         }
         if(e.getSource() == Comic){
         	ansField.setFont(c);
-        }
-        if(e.getSource() == exit){
-        	System.exit(0);
         }
 	}
   
